@@ -4,6 +4,14 @@
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
 
+  @media (max-width: 645px) {
+    flex-direction: column-reverse;
+
+    .header__cart {
+      margin-bottom: 20px;
+    }
+  }
+
   .container {
     display: flex;
     align-items: center;
