@@ -4,8 +4,11 @@ import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination/Pagination';
+import {SearchContext} from '../App';
 
 const Home = () => {
+  const { searchValue } = React.useContext(SearchContext);
+
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -14,14 +17,15 @@ const Home = () => {
 
   const [currentPage, setCurrentPage] = React.useState(1);
 
+  const category = categoryId > 0 ? `category=${categoryId}` : '';
+  const order = sortType.sort.includes('-') ? 'desc' : 'asc';
+  const sort = sortType.sort.replace('-', '');
+  const search = searchValue ? searchValue : '';
+
   React.useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://6336e2ec5327df4c43cb898a.mockapi.io/items?page=${currentPage}&limit=4&${
-        categoryId > 0 ? `category=${categoryId}` : ''
-      }&sortBy=${sortType.sort.replace('-', '')}&order=${
-        sortType.sort.includes('-') ? 'desc' : 'asc'
-      }`,
+      `https://6336e2ec5327df4c43cb898a.mockapi.io/items?page=${currentPage}&search=${search}&limit=4&${category}&sortBy=${sort}&order=${order}`,
     )
       .then((res) => res.json())
       .then((arr) => {
@@ -29,7 +33,7 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType.sort, currentPage]);
+  }, [categoryId, sortType.sort, searchValue, currentPage]);
 
   const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
 
