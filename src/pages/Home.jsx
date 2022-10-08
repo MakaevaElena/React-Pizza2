@@ -10,19 +10,18 @@ import { setCategoryId } from '../redux/slices/filterSlice';
 
 const Home = () => {
   const categoryId = useSelector((state) => state.filter.categoryId);
+  const sortType = useSelector((state) => state.filter.sort.sortProperty);
   const dispatch = useDispatch();
 
   const { searchValue } = React.useContext(SearchContext);
 
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  // const [categoryId, setCategoryId] = React.useState(0);
-  const [sortType, setSortType] = React.useState({ name: 'популярности', sort: 'rating' });
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const category = categoryId > 0 ? `category=${categoryId}` : '';
-  const order = sortType.sort.includes('-') ? 'desc' : 'asc';
-  const sort = sortType.sort.replace('-', '');
+  const order = sortType.includes('-') ? 'desc' : 'asc';
+  const sort = sortType.replace('-', '');
   const search = searchValue ? searchValue : '';
 
   React.useEffect(() => {
@@ -36,7 +35,7 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType.sort, searchValue, currentPage]);
+  }, [categoryId, sortType, searchValue, currentPage, category, order, search, sort]);
 
   const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
 
@@ -44,7 +43,7 @@ const Home = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={(i) => dispatch(setCategoryId(i))} />
-        <Sort value={sortType} onChangeSortType={(type) => setSortType(type)} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
