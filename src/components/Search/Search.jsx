@@ -1,9 +1,30 @@
 import React from 'react';
 import styles from './Search.module.scss';
-import { SearchContext } from '../../App';
+// import { SearchContext } from '../../App';
+import debounce from 'lodash.debounce';
+import { useDispatch } from 'react-redux';
+import { setSearchValue } from '../../redux/slices/filterSlice';
 
 const Search = (props) => {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+  const [value, setValue] = React.useState('');
+  // const { setSearchValue } = React.useContext(SearchContext);
+  const dispatch = useDispatch();
+
+  const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      dispatch(setSearchValue(str));
+    }, 150),
+    [],
+  );
+
+  // const updateSearchValue = debounce((str) => {
+  //   dispatch(setSearchValue(str));
+  // }, 500);
+
+  const onChangeInput = (evt) => {
+    setValue(evt.target.value);
+    updateSearchValue(evt.target.value);
+  };
 
   return (
     <div className={styles.root}>
@@ -14,8 +35,8 @@ const Search = (props) => {
         </g>
       </svg>
       <input
-        value={searchValue}
-        onChange={(event) => setSearchValue(event.target.value)}
+        value={value}
+        onChange={onChangeInput}
         className={styles.input}
         placeholder="Поиск пиццы..."
         type="text"
