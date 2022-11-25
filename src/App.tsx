@@ -1,4 +1,3 @@
-import React from 'react';
 import './scss/app.scss';
 import { Routes, Route } from 'react-router-dom';
 
@@ -9,7 +8,6 @@ import NotFound from './pages/NotFound';
 import FullPizza from './pages/FullPizza';
 import MainLayout from './layouts/MainLayout';
 // import pizzas from './assets/pizzas.json';
-
 // export const SearchContext = React.createContext('');
 
 function App() {

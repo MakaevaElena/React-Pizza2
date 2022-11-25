@@ -3,8 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 
-const FullPizza = (props) => {
-  const [pizza, setPizza] = React.useState();
+const FullPizza: React.FC = (props) => {
+  const [pizza, setPizza] = React.useState<{
+    id: number;
+    title: string;
+    price: number;
+    imageUrl: string;
+    sizes: number;
+    types: number;
+  }>();
   const { pizzaId } = useParams();
   const navigate = useNavigate();
 
@@ -25,7 +32,7 @@ const FullPizza = (props) => {
   //   const item = useSelector(selectCartItemById(id));
 
   if (!pizza) {
-    return 'Loading...';
+    return <>'Loading...'</>;
   }
 
   return (
