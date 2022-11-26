@@ -5,12 +5,12 @@ import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 
 const FullPizza: React.FC = (props) => {
   const [pizza, setPizza] = React.useState<{
-    id: number;
+    id: string;
     title: string;
     price: number;
     imageUrl: string;
-    sizes: number;
-    types: number;
+    sizes: number[];
+    types: number[];
   }>();
   const { pizzaId } = useParams();
   const navigate = useNavigate();
