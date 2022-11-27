@@ -23,23 +23,42 @@ export const pizzasSlice = createSlice({
       state.items = action.payload;
     },
   },
-  extraReducers: {
-    [fetchPizzas.pending]: (state) => {
-      console.log('идет запрос');
-      state.status = 'loading';
-      state.items = [];
-    },
-    [fetchPizzas.fulfilled]: (state, action) => {
-      state.items = action.payload;
-      state.status = 'success';
-      console.log('данные получены');
-    },
-    [fetchPizzas.rejected]: (state, action) => {
-      console.log('была ошибка');
-      state.status = 'error';
-      state.items = [];
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPizzas.pending, (state) => {
+        console.log('идет запрос');
+        state.status = 'loading';
+        state.items = [];
+      })
+      .addCase(fetchPizzas.fulfilled, (state, action) => {
+        state.items = action.payload;
+        state.status = 'success';
+        console.log('данные получены');
+      })
+      .addCase(fetchPizzas.rejected, (state, action) => {
+        console.log('была ошибка');
+        state.status = 'error';
+        state.items = [];
+      });
   },
+
+  // extraReducers: {
+  //   [fetchPizzas.pending]: (state) => {
+  //     console.log('идет запрос');
+  //     state.status = 'loading';
+  //     state.items = [];
+  //   },
+  //   [fetchPizzas.fulfilled]: (state, action) => {
+  //     state.items = action.payload;
+  //     state.status = 'success';
+  //     console.log('данные получены');
+  //   },
+  //   [fetchPizzas.rejected]: (state, action) => {
+  //     console.log('была ошибка');
+  //     state.status = 'error';
+  //     state.items = [];
+  //   },
+  // },
 });
 
 export const selectPizzaData = (state) => state.pizzas;

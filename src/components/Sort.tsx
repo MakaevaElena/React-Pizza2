@@ -28,8 +28,11 @@ function Sort() {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (evt:any) => {
-      if (!evt.path.includes(sortRef.current)) {
+    const handleClickOutside = (evt: MouseEvent) => {
+      const _evt = evt as MouseEvent & {
+        path: Node[];
+      };
+      if (sortRef.current && !_evt.path.includes(sortRef.current)) {
         setOpen(false);
       }
     };
