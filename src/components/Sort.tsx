@@ -4,7 +4,7 @@ import { setSort, selectSort } from '../redux/slices/filterSlice';
 
 type SortItemType = {
   name: string;
-  sortProperty: string;
+  sortProperty: 'rating' | '-rating' | 'price' | '-price' | 'title';
 };
 
 const list: SortItemType[] = [
@@ -66,7 +66,7 @@ function Sort() {
               <li
                 key={i}
                 onClick={() => onClickListItem(obj)}
-                className={sort.sort === obj.sortProperty ? 'active' : ''}>
+                className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>
                 {obj.name}
               </li>
             ))}
