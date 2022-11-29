@@ -7,21 +7,16 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination/Pagination';
 // import { SearchContext } from '../App';
 import { useSelector } from 'react-redux';
-import {
-  setCategoryId,
-  setCurrentPage,
-  selectFilter,
-  selectSort,
-} from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage, selectFilter } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
 import { useAppDispatch } from '../redux/store';
 
-const Home: React.FC = () => {
+const Home: React.FC =  () => {
   // const categoryId = useSelector((state) => state.filter.categoryId);
   // const { sortProperty } = useSelector((state) => state.filter.sort);
   // const currentPage = useSelector((state) => state.filter.currentPage);
-  const { sortProperty } = useSelector(selectSort);
-  const { categoryId, currentPage, searchValue } = useSelector(selectFilter);
+  // const { sortProperty } = useSelector(selectSort);
+  const { sort, categoryId, currentPage, searchValue } = useSelector(selectFilter);
 
   // const items = useSelector((state) => state.pizzas.items);
   // const status = useSelector((state) => state.pizzas.status);
@@ -36,8 +31,8 @@ const Home: React.FC = () => {
   // const [currentPage, setCurrentPage] = React.useState(1);
 
   const category = categoryId > 0 ? `category=${categoryId}` : '';
-  const order = sortProperty.includes('-') ? 'desc' : 'asc';
-  const sortBy = sortProperty.replace('-', '');
+  const order = sort.sortProperty.includes('-') ? 'desc' : 'asc';
+  const sortBy = sort.sortProperty.replace('-', '');
   const search = searchValue ? searchValue : '';
 
   const getPizzas = async () => {
@@ -80,7 +75,7 @@ const Home: React.FC = () => {
 
   React.useEffect(() => {
     getPizzas();
-  }, [categoryId, sortBy, searchValue, currentPage, category, order, search, sortProperty]);
+  }, [categoryId, sortBy, searchValue, currentPage, category, order, search, sort]);
 
   const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
@@ -90,9 +85,9 @@ const Home: React.FC = () => {
       <div className="content__top">
         <Categories
           value={categoryId}
-          onChangeCategory={(i: number) => dispatch(setCategoryId(i))}
+          onChangeCategory={React.useCallback((i: number) => dispatch(setCategoryId(i)), [])}
         />
-        <Sort />
+        <Sort value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === 'error' ? (

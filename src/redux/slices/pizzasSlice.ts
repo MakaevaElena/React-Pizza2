@@ -58,17 +58,17 @@ export const pizzasSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPizzas.pending, (state) => {
-        console.log('идет запрос');
+        // console.log('идет запрос');
         state.status = Status.LOADING;
         state.items = [];
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
         state.items = action.payload;
         state.status = Status.SUCCESS;
-        console.log('данные получены');
+        // console.log('данные получены');
       })
       .addCase(fetchPizzas.rejected, (state) => {
-        console.log('была ошибка');
+        // console.log('была ошибка');
         state.status = Status.ERROR;
         state.items = [];
       });

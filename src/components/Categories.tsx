@@ -1,5 +1,5 @@
 import React from 'react';
-
+// import { useWhyDidYouUpdate } from 'ahooks';
 const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
 type CategoriesPropsType = {
@@ -7,13 +7,16 @@ type CategoriesPropsType = {
   onChangeCategory: (index: number) => void;
 };
 
-const Categories: React.FC<CategoriesPropsType> = ({ value, onChangeCategory }) => {
+const Categories: React.FC<CategoriesPropsType> = React.memo(({ value, onChangeCategory }) => {
   // const [activeIndex, setActiveIndex] = React.useState(0);
 
   // const onClickcategory = (index) => {
   //   setActiveIndex(index);
   // };
 
+  //https://ahooks.js.org/hooks/use-request/index
+  //useWhyDidYouUpdate следит за изменением пропсов
+  // useWhyDidYouUpdate('Categories', { value, onChangeCategory });
   return (
     <div className="categories">
       <ul>
@@ -28,6 +31,6 @@ const Categories: React.FC<CategoriesPropsType> = ({ value, onChangeCategory }) 
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;
