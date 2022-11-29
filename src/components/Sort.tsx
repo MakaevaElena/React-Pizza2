@@ -1,18 +1,18 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSort, selectSort } from '../redux/slices/filterSlice';
+import { setSort, selectSort, SortPropertyEnum } from '../redux/slices/filterSlice';
 
 type SortItemType = {
   name: string;
-  sortProperty: 'rating' | '-rating' | 'price' | '-price' | 'title';
+  sortProperty: SortPropertyEnum;
 };
 
 const list: SortItemType[] = [
-  { name: 'популярности(ASC)', sortProperty: 'rating' },
-  { name: 'популярности(DESC)', sortProperty: '-rating' },
-  { name: 'цене(ASC)', sortProperty: 'price' },
-  { name: 'цене(DESC)', sortProperty: '-price' },
-  { name: 'алфавиту', sortProperty: 'title' },
+  { name: 'популярности(ASC)', sortProperty: SortPropertyEnum.RATING_DESC },
+  { name: 'популярности(DESC)', sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: 'цене(ASC)', sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: 'цене(DESC)', sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: 'алфавиту', sortProperty: SortPropertyEnum.TITLE_DESC },
 ];
 
 function Sort() {

@@ -6,7 +6,7 @@ import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination/Pagination';
 // import { SearchContext } from '../App';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   setCategoryId,
   setCurrentPage,
@@ -14,6 +14,7 @@ import {
   selectSort,
 } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
+import { useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
   // const categoryId = useSelector((state) => state.filter.categoryId);
@@ -26,7 +27,7 @@ const Home: React.FC = () => {
   // const status = useSelector((state) => state.pizzas.status);
   const { items, status } = useSelector(selectPizzaData);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // const { searchValue } = React.useContext(SearchContext);
 
@@ -66,7 +67,6 @@ const Home: React.FC = () => {
       }),
     );
 
-    //запрос с сервера fetch
     // fetch(
     //   `https://6336e2ec5327df4c43cb898a.mockapi.io/items?page=${currentPage}&search=${search}&limit=4&${category}&sortBy=${sort}&order=${order}`,
     // )

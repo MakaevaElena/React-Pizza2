@@ -31,14 +31,20 @@ type PizzaBlockType = {
   types: number[];
 };
 
+export enum Status {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
+
 interface PizzasSliceInterface {
   items: PizzaBlockType[];
-  status: 'loading' | 'success' | 'error';
+  status: Status;
 }
 
 const initialState: PizzasSliceInterface = {
   items: [],
-  status: 'loading',
+  status: Status.LOADING,
 };
 
 export const pizzasSlice = createSlice({
@@ -53,17 +59,17 @@ export const pizzasSlice = createSlice({
     builder
       .addCase(fetchPizzas.pending, (state) => {
         console.log('идет запрос');
-        state.status = 'loading';
+        state.status = Status.LOADING;
         state.items = [];
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
         state.items = action.payload;
-        state.status = 'success';
+        state.status = Status.SUCCESS;
         console.log('данные получены');
       })
       .addCase(fetchPizzas.rejected, (state) => {
         console.log('была ошибка');
-        state.status = 'error';
+        state.status = Status.ERROR;
         state.items = [];
       });
   },
