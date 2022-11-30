@@ -1,15 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setSort, SortPropertyEnum } from '../redux/slices/filterSlice';
-
-type SortItemType = {
-  name: string;
-  sortProperty: SortPropertyEnum;
-};
-
-type SortPropsType = {
-  value: SortItemType;
-};
+import { SortPropertyEnum } from '../const ';
+import { setSort } from '../redux/slices/filterSlice';
+import { SortItemType, SortPropsType } from '../redux/slices/types';
 
 const list: SortItemType[] = [
   { name: 'популярности(ASC)', sortProperty: SortPropertyEnum.RATING_DESC },

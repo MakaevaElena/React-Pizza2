@@ -1,11 +1,7 @@
 import React from 'react';
+import { CategoriesPropsType } from '../redux/slices/types';
 // import { useWhyDidYouUpdate } from 'ahooks';
 const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-
-type CategoriesPropsType = {
-  value: number;
-  onChangeCategory: (index: number) => void;
-};
 
 const Categories: React.FC<CategoriesPropsType> = React.memo(({ value, onChangeCategory }) => {
   // const [activeIndex, setActiveIndex] = React.useState(0);
