@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 
@@ -38,6 +38,11 @@ const FullPizza: React.FC = (props) => {
   return (
     <div>
       <PizzaBlock {...pizza} />
+      <Link to="/">
+        <button className="button button--outline button--add">
+          <span>Назад</span>
+        </button>
+      </Link>
     </div>
   );
 };
